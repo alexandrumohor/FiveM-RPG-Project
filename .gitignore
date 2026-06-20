@@ -4,7 +4,7 @@
 *.iml
 
 # Server binaries & installers
-Server/
+/Server/
 
 # Lua language server
 .luarc.json
