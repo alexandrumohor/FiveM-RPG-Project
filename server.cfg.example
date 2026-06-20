@@ -1,0 +1,19 @@
+# FiveM RPG Server - Exemplu configurare
+
+# Informații server
+sv_hostname "FiveM RPG Server"
+sv_maxclients 32
+sv_licenseKey "changeme"
+
+# Steam Web API key (opțional, pentru identificare Steam)
+# set steam_webApiKey "changeme"
+
+# Database - oxmysql connection string
+set mysql_connection_string "mysql://root:password@localhost:3306/fivem_rpg?charset=utf8mb4"
+
+# Resurse necesare (în ordinea dependențelor)
+ensure oxmysql
+ensure bcrypt
+
+# Resursa de autentificare
+ensure auth
