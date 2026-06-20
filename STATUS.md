@@ -3,8 +3,8 @@
 ## Ultima actualizare: 2026-06-21
 
 ## Unde am rămas
-**Faza curentă:** Phase 3 - NUI Login/Register (NEÎNCEPUT)
-**Ce urmează:** html/index.html, style.css, script.js - interfața de login/register.
+**Faza curentă:** Phase 4 - Sistem Autentificare Server-Side (NEÎNCEPUT)
+**Ce urmează:** server/auth.lua, server/main.lua - bcrypt, NUI callbacks, session tracking.
 
 ---
 
@@ -15,7 +15,7 @@
 | 0 | Repository Init & Scaffolding | ✅ COMPLET | .gitignore, git init, GitHub repo, primul commit |
 | 1 | Structura Resurselor FiveM | ✅ COMPLET | fxmanifest.lua, config.lua, server.cfg.example, structura directoare |
 | 2 | Database Setup | ✅ COMPLET | sql/init.sql schema, server/db.lua wrapper oxmysql |
-| 3 | NUI - Interfața Login/Register | ⏳ NEÎNCEPUT | html/index.html, style.css, script.js - popup obligatoriu |
+| 3 | NUI - Interfața Login/Register | ✅ COMPLET | html/index.html, style.css, script.js - popup obligatoriu |
 | 4 | Sistem Autentificare (Server-Side) | ⏳ NEÎNCEPUT | server/auth.lua, server/main.lua - bcrypt, NUI callbacks |
 | 5 | Client-Side - Camera & NUI Control | ⏳ NEÎNCEPUT | client/main.lua, spawn.lua - camera cinematică, fără ped, NUI focus |
 | 6 | Documentație & Final | ⏳ NEÎNCEPUT | README.md, docs/SETUP.md |
@@ -40,3 +40,4 @@
 - **2026-06-21** — Phase 0 completă. Git init, .gitignore, GitHub repo creat, primul commit+push.
 - **2026-06-21** — Phase 1 completă. fxmanifest.lua, config.lua, server.cfg.example, structura directoare.
 - **2026-06-21** — Phase 2 completă. sql/init.sql cu schema users, server/db.lua wrapper oxmysql cu toate funcțiile DB.
+- **2026-06-21** — Phase 3 completă. NUI auth UI: index.html, style.css (dark theme, glassmorphism), script.js (login/register forms, tab switch, NUI messaging, ESC blocat, validare client-side).
