@@ -3,8 +3,8 @@
 ## Ultima actualizare: 2026-06-21
 
 ## Unde am rămas
-**Faza curentă:** Phase 5 - Client-Side Camera & NUI Control (NEÎNCEPUT)
-**Ce urmează:** client/main.lua, client/spawn.lua - camera cinematică, fără ped, NUI focus, RegisterNUICallback handlers.
+**Faza curentă:** Phase 6 - Documentație & Final (NEÎNCEPUT)
+**Ce urmează:** README.md, docs/SETUP.md - documentație proiect și setup.
 
 ---
 
@@ -17,7 +17,7 @@
 | 2 | Database Setup | ✅ COMPLET | sql/init.sql schema, server/db.lua wrapper oxmysql |
 | 3 | NUI - Interfața Login/Register | ✅ COMPLET | html/index.html, style.css, script.js - popup obligatoriu |
 | 4 | Sistem Autentificare (Server-Side) | ✅ COMPLET | server/auth.lua, server/main.lua - bcrypt, session tracking, events |
-| 5 | Client-Side - Camera & NUI Control | ⏳ NEÎNCEPUT | client/main.lua, spawn.lua - camera cinematică, fără ped, NUI focus |
+| 5 | Client-Side - Camera & NUI Control | ✅ COMPLET | client/main.lua, spawn.lua - camera cinematică, fără ped, NUI focus |
 | 6 | Documentație & Final | ⏳ NEÎNCEPUT | README.md, docs/SETUP.md |
 
 ---
@@ -42,3 +42,4 @@
 - **2026-06-21** — Phase 2 completă. sql/init.sql cu schema users, server/db.lua wrapper oxmysql cu toate funcțiile DB.
 - **2026-06-21** — Phase 3 completă. NUI auth UI: index.html, style.css (dark theme, glassmorphism), script.js (login/register forms, tab switch, NUI messaging, ESC blocat, validare client-side).
 - **2026-06-21** — Phase 4 completă. server/auth.lua (Auth module: bcrypt hash/verify cu promises, session tracking in-memory, register cu validări+auto-login, login cu verificare license+password+kick la 3 fail-uri). server/main.lua (playerConnecting ban check cu deferrals, RegisterNetEvent auth:attemptRegister/attemptLogin, playerDropped cleanup).
+- **2026-06-21** — Phase 5 completă. client/spawn.lua (Spawn module: freeze/unfreeze ped, invizibil+frozen+invincibil pe auth, DisableAllControlActions în loop, spawn la Config.SpawnCoords). client/main.lua (camera cinematică din Config, NUI show automat, RegisterNUICallback login/register → TriggerServerEvent, auth:result handler: hide NUI, destroy cam, Spawn.Unfreeze). fxmanifest.lua: spawn.lua încărcat înaintea main.lua.
