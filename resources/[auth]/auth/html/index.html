@@ -3,60 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Auth</title>
-    <link rel="stylesheet" href="style.css">
+    <script>document.write('<link rel="stylesheet" href="style.css?v=' + Date.now() + '">');</script>
 </head>
 <body>
     <div id="auth-container" class="hidden">
         <div class="auth-card">
-            <div class="auth-header">
-                <h1>RPG Server</h1>
-                <p class="subtitle">Autentificare</p>
-            </div>
-
-            <div class="tabs">
-                <button class="tab active" data-tab="login">Login</button>
-                <button class="tab" data-tab="register">Register</button>
-            </div>
-
             <div id="message" class="message hidden"></div>
 
-            <form id="login-form" class="auth-form">
-                <div class="input-group">
-                    <label for="login-username">Username</label>
-                    <input type="text" id="login-username" name="username" autocomplete="off" required>
+            <form id="login-form" class="auth-form hidden">
+                <div class="welcome-text">
+                    Bine ai revenit, <span id="login-display-name"></span>
                 </div>
                 <div class="input-group">
-                    <label for="login-password">Parolă</label>
+                    <label for="login-password">Parola</label>
                     <input type="password" id="login-password" name="password" required>
                 </div>
-                <button type="submit" class="btn-submit">Conectează-te</button>
+                <input type="hidden" id="login-username" value="">
+                <button type="submit" class="btn-submit">Conecteaza-te</button>
+                <button type="button" class="btn-switch" id="switch-to-register">Creeaza cont nou</button>
             </form>
 
             <form id="register-form" class="auth-form hidden">
                 <div class="input-group">
                     <label for="reg-username">Username</label>
-                    <input type="text" id="reg-username" name="username" autocomplete="off"
-                           placeholder="Lasă gol pentru a folosi numele FiveM">
+                    <input type="text" id="reg-username" name="username" autocomplete="off" required>
                 </div>
                 <div class="input-group">
                     <label for="reg-email">Email</label>
-                    <input type="email" id="reg-email" name="email" autocomplete="off"
-                           placeholder="Opțional">
+                    <input type="email" id="reg-email" name="email" autocomplete="off">
                 </div>
                 <div class="input-group">
-                    <label for="reg-password">Parolă</label>
+                    <label for="reg-password">Parola</label>
                     <input type="password" id="reg-password" name="password" required>
                 </div>
                 <div class="input-group">
-                    <label for="reg-confirm">Confirmă parola</label>
+                    <label for="reg-confirm">Confirma parola</label>
                     <input type="password" id="reg-confirm" name="confirmPassword" required>
                 </div>
-                <button type="submit" class="btn-submit">Creează cont</button>
+                <button type="submit" class="btn-submit">Creeaza cont</button>
+                <button type="button" class="btn-switch hidden" id="switch-to-login">Am deja cont</button>
             </form>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <div id="chat-container" class="chat-closed">
+        <div id="chat-panel">
+            <div id="chat-header">
+                <span class="chat-header-icon">💬</span>
+                <span class="chat-header-title">Chat</span>
+                <span id="chat-header-hint">ESC pentru a închide</span>
+            </div>
+            <div id="chat-messages"></div>
+            <div id="chat-input-wrapper">
+                <div id="chat-input-box">
+                    <input type="text" id="chat-input" placeholder="Scrie un mesaj..." autocomplete="off" maxlength="200">
+                    <span id="chat-send-hint">ENTER ↵</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>var s=document.createElement('script');s.src='script.js?v='+Date.now();document.body.appendChild(s);</script>
 </body>
 </html>

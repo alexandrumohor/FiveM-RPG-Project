@@ -16,3 +16,6 @@ Desktop.ini
 
 # Logs
 *.log
+
+# FiveM Natives plugin stubs
+.idea/fivem-stubs/

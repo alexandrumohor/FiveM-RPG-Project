@@ -27,6 +27,8 @@ server_scripts {
 client_scripts {
     'client/spawn.lua',
     'client/main.lua',
+    'client/nametag.lua',
+    'client/chat.lua',
 }
 
 ui_page 'html/index.html'

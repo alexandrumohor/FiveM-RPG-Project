@@ -2,20 +2,62 @@ Auth = {}
 Auth.Sessions = {}
 Auth.Attempts = {}
 
-local function BcryptHash(password, cost)
-    local p = promise.new()
-    exports.bcrypt:Hash(password, cost, function(hash)
-        p:resolve(hash)
-    end)
-    return Citizen.Await(p)
+local vulgarWords = {
+    'pula','pule','pulei','pulan','pulica',
+    'coaie','coae','coaiele',
+    'pizda','pizde','pizdei','pizdulica',
+    'muie','muist','muista',
+    'fut','fute','futu','futui','futut','futi',
+    'cacat','kkt',
+    'cur','curva','curve',
+    'sugipula','sugpula','sugipl','sugpl',
+    'mata','mati','matii',
+    'plm','mortii','mortilor',
+    'sloboz','labagiu','laba','labari',
+    'bulangiu','bulangi','poponar','poponari',
+    'retardat','retardata','handicapat','handicapata',
+    'idiot','idiota','imbecil','imbecila',
+    'cretina','cretin',
+    'rahat',
+}
+
+local function normalizeForFilter(str)
+    local s = string.lower(str)
+    local leetMap = {['0']='o',['1']='i',['3']='e',['4']='a',['5']='s',['7']='t',['@']='a',['$']='s',['!']='i'}
+    s = s:gsub('[013457@$!]', function(c) return leetMap[c] or c end)
+    s = s:gsub('(.)%1+', '%1')
+    return s
+end
+
+local function vowelNormalize(str)
+    return str:gsub('[aeiou]', '*')
+end
+
+local vulgarVowelNorm = {}
+for _, word in ipairs(vulgarWords) do
+    vulgarVowelNorm[#vulgarVowelNorm + 1] = vowelNormalize(word)
+end
+
+local function containsVulgar(str)
+    local normalized = normalizeForFilter(str)
+    local normalizedVowel = vowelNormalize(normalized)
+    for i, word in ipairs(vulgarWords) do
+        if normalized:find(word, 1, true) then
+            return true
+        end
+        if #word >= 4 and normalizedVowel:find(vulgarVowelNorm[i], 1, true) then
+            return true
+        end
+    end
+    return false
+end
+
+local function BcryptHash(password)
+    return exports.bcrypt:GetPasswordHash(password)
 end
 
 local function BcryptVerify(password, hash)
-    local p = promise.new()
-    exports.bcrypt:Verify(password, hash, function(matches)
-        p:resolve(matches)
-    end)
-    return Citizen.Await(p)
+    return exports.bcrypt:VerifyPasswordHash(password, hash)
 end
 
 function Auth.GetPlayerLicense(source)
@@ -48,11 +90,19 @@ function Auth.Register(source, data)
     local email = data.email
 
     if not username or username == '' then
-        username = GetPlayerName(source)
+        return { success = false, message = 'Username-ul este obligatoriu.' }
     end
 
     if #username < 3 then
         return { success = false, message = Config.Messages.UsernameTooShort }
+    end
+
+    if not username:match('^[a-zA-Z0-9_.]+$') then
+        return { success = false, message = 'Username-ul poate contine doar litere, cifre, underscore si punct.' }
+    end
+
+    if containsVulgar(username) then
+        return { success = false, message = 'Username-ul contine cuvinte nepermise.' }
     end
 
     if not password or #password < 6 then
@@ -67,7 +117,7 @@ function Auth.Register(source, data)
         return { success = false, message = Config.Messages.UsernameTaken }
     end
 
-    local hash = BcryptHash(password, Config.BcryptCost)
+    local hash = BcryptHash(password)
     local fivemName = GetPlayerName(source)
     DB.CreateUser(license, username, hash, email, fivemName)
 
